@@ -1,12 +1,11 @@
-import './App.css';
 import { Box } from '@chakra-ui/react';
 
 function App() {
-    return (
-        <>
-            <Box>Hello World</Box>
-        </>
-    );
+  return (
+    <>
+      <Box>Hello World</Box>
+    </>
+  );
 }
 
 export default App;
