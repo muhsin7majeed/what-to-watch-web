@@ -1,12 +1,25 @@
 import { Box, Text } from '@chakra-ui/react';
+import { useAtom } from 'jotai';
 import { SubmitHandler } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import AuthForm from './AuthForm';
 import { LoginInputs } from './AuthForm';
+import { authAtom, setAuth } from '../../store/auth';
+import { LocationState } from '../../types';
 
 const Login = () => {
+  const [, setAuthState] = useAtom(authAtom);
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const onSubmit: SubmitHandler<LoginInputs> = (data) => {
-    console.log(data);
+    const dummyToken = 'dummy.jwt.token';
+    const dummyUser = { id: '1', username: data.username };
+
+    setAuthState(setAuth(dummyUser, dummyToken));
+
+    const from = (location.state as LocationState)?.from?.pathname || '/';
+    navigate(from, { replace: true });
   };
 
   return (
